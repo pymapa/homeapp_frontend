@@ -37,7 +37,7 @@ pipelines:
                 AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
                 AWS_DEFAULT_REGION: 'us-east-1'
                 S3_BUCKET: 'prod.pyrypajunpaa.com'
-                LOCAL_PATH: 'build'
+                LOCAL_PATH: './build'
                 ACL: 'public-read'
 
         
