@@ -14,6 +14,7 @@ pipelines:
               - node
             script:
               - npm install
+              - npm build
               #- npm test
         - step:
             name: Code linting
@@ -22,10 +23,6 @@ pipelines:
               - npx eslint .
             caches:
               - node
-        - step:
-            name: Build
-            script:
-              - npm build
         - step:
             name: Deploy to prod
             deployment: production
