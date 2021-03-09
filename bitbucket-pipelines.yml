@@ -27,8 +27,7 @@ pipelines:
             deployment: production
             trigger: manual
             script:
-            - pwd
-            - ls
+            - npm install
             - npm run build
             - pipe: atlassian/aws-s3-deploy:0.3.8
               variables:
