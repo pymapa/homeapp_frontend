@@ -34,19 +34,22 @@ pipelines:
               variables:
                 AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
                 AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                AWS_DEFAULT_REGION: 'eu-central-1'
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
                 S3_BUCKET: 'dev.pyrypajunpaa.com'
                 LOCAL_PATH: './build'
                 ACL: 'public-read'
     master:
       - parallel:
         - step:
-            name: Test
+            name: Test & build
             caches:
               - node
             script:
               - npm install
+              - npm run build
               #- npm test
+            artifacts:
+              - build/**
         - step:
             name: Code linting
             script:
@@ -61,15 +64,24 @@ pipelines:
             caches:
               - node
             script:
-            - npm run build
+            # - npm run build
             - pipe: atlassian/aws-s3-deploy:0.3.8
               variables:
                 AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
                 AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                AWS_DEFAULT_REGION: 'eu-central-1'
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
                 S3_BUCKET: 'prod.pyrypajunpaa.com'
-                LOCAL_PATH: './build'
+                LOCAL_PATH: 'build'
                 ACL: 'public-read'
+        - step:
+          name: Invalidate Cloudfront Cache
+          script:
+            - pipe: atlassian/aws-cloudfront-invalidate:0.1.1
+              variables:
+                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+                AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+                DISTRIBUTION_ID: $PRODUCTION_DISTRIBUTION_ID
 
         
 
