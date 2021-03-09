@@ -6,37 +6,37 @@
 image: node:10.15.3
 
 pipelines:
-  default:
-    - parallel:
-        - step:
-            name: Test
-            caches:
-              - node
-            script:
-              - npm install
-              #- npm test
-        - step:
-            name: Code linting
-            script:
-              - npm install eslint
-              - npx eslint .
-            caches:
-              - node
-        - step:
-            name: Deploy to prod
-            deployment: production
-            trigger: manual
-            script:
+  branches:
+    master:
+      - step:
+          name: Test
+          caches:
+            - node
+          script:
             - npm install
-            - npm run build
-            - pipe: atlassian/aws-s3-deploy:0.3.8
-              variables:
-                AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
-                AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
-                AWS_DEFAULT_REGION: 'us-east-1'
-                S3_BUCKET: 'prod.pyrypajunpaa.com'
-                LOCAL_PATH: './build'
-                ACL: 'public-read'
+            #- npm test
+      - step:
+          name: Code linting
+          script:
+            - npm install eslint
+            - npx eslint .
+          caches:
+            - node
+      - step:
+          name: Deploy to prod
+          deployment: production
+          trigger: manual
+          script:
+          - npm install
+          - npm run build
+          - pipe: atlassian/aws-s3-deploy:0.3.8
+            variables:
+              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+              AWS_DEFAULT_REGION: 'us-east-1'
+              S3_BUCKET: 'prod.pyrypajunpaa.com'
+              LOCAL_PATH: './build'
+              ACL: 'public-read'
 
         
 
