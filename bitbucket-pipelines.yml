@@ -47,7 +47,7 @@ pipelines:
               - node
             script:
               - npm install
-              - npm build
+              - npm run build
               #- npm test
         - step:
             name: Code linting
