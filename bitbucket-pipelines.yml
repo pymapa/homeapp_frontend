@@ -10,12 +10,15 @@ pipelines:
     develop:
       - parallel:
         - step:
-            name: Test
+            name: Test & build
             caches:
               - node
             script:
               - npm install
+              - npm run build
               #- npm test
+            artifacts:
+              - build/**
         - step:
             name: Code linting
             script:
@@ -23,21 +26,32 @@ pipelines:
               - npx eslint .
             caches:
               - node
-        - step:
-            name: Build & Deploy to dev
-            deployment: production
-            caches:
-              - node
-            script:
-            - npm run build
-            - pipe: atlassian/aws-s3-deploy:0.3.8
+      - step:
+          name: Deploy to develop
+          deployment: development
+          # trigger: manual
+          caches:
+            - node
+          script:
+          # - npm run build
+          - pipe: atlassian/aws-s3-deploy:0.3.8
+            variables:
+              AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+              AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+              AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
+              S3_BUCKET: 'dev.pyrypajunpaa.com'
+              LOCAL_PATH: 'build'
+              ACL: 'public-read'
+      - step:
+          name: Invalidate Cloudfront Cache
+          # trigger: manual
+          script:
+            - pipe: atlassian/aws-cloudfront-invalidate:0.1.1
               variables:
                 AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
                 AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
                 AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-                S3_BUCKET: 'dev.pyrypajunpaa.com'
-                LOCAL_PATH: './build'
-                ACL: 'public-read'
+                DISTRIBUTION_ID: $PRODUCTION_DISTRIBUTION_ID
     master:
       - parallel:
         - step:
@@ -60,7 +74,7 @@ pipelines:
       - step:
           name: Deploy to prod
           deployment: production
-          # trigger: manual
+          trigger: manual
           caches:
             - node
           script:
@@ -75,7 +89,7 @@ pipelines:
               ACL: 'public-read'
       - step:
           name: Invalidate Cloudfront Cache
-          trigger: manual
+          # trigger: manual
           script:
             - pipe: atlassian/aws-cloudfront-invalidate:0.1.1
               variables:
