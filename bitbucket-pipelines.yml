@@ -28,7 +28,7 @@ pipelines:
               - node
       - step:
           name: Deploy to develop
-          deployment: develop
+          deployment: dev
           # trigger: manual
           caches:
             - node
