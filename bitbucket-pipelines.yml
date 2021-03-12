@@ -39,7 +39,7 @@ pipelines:
               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
               AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
               AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-              S3_BUCKET: 'dev.pyrypajunpaa.com'
+              S3_BUCKET: $DEV_BUCKET_NAME
               LOCAL_PATH: 'build'
               ACL: 'public-read'
       - step:
@@ -84,7 +84,7 @@ pipelines:
               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
               AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
               AWS_DEFAULT_REGION: $AWS_DEFAULT_REGION
-              S3_BUCKET: 'pyrypajunpaa.com'
+              S3_BUCKET: $PROD_BUCKET_NAME
               LOCAL_PATH: 'build'
               ACL: 'public-read'
       - step:
