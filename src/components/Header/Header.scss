@@ -1,0 +1,41 @@
+@import '../../colors.scss';
+
+$dropdown-width: 120px;
+
+.header {
+  // border: 1px solid black;
+  padding: 1em;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__dropdown {
+    font-size: 1.5rem;
+    width: $dropdown-width;
+    display: flex;
+    justify-content: center;
+    position: relative;
+
+    &--items {
+      width: $dropdown-width;
+      top: 0;
+      left: 0;
+      position: absolute;
+      font-size: 1rem;
+    }
+    
+    &--item {
+      padding: 0.5em;
+      text-align: center;
+      
+      &:first-child {
+        margin-top: 2em;
+      }
+      &:hover {
+        background-color: $color-dropdown-hover;
+      }
+    }
+
+  }
+}

@@ -114,6 +114,6 @@ export const changePassword = (
   });
 };
 
-export const checkSession = async (cognitoUserSession: CognitoUserSession) => {
+export const isValidSession = (cognitoUserSession: CognitoUserSession) => {
   return cognitoUserSession.isValid();
 };

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { getCognitoUser, getCurrentUser, checkSession, signIn } from "../../utils/auth";
+import { getCognitoUser, isValidSession, signIn } from "../../utils/auth";
 import { HttpRequestStatus } from "../../utils/http";
 import "./login.scss";
 import LoginForm from "./LoginForm";
@@ -19,11 +19,9 @@ const Login = (props: Props) => {
   const history = useHistory()
 
   useEffect(() => {
-    console.log(getCurrentUser())
-    console.log('check')
-    const loggedIn = userSession && checkSession(userSession)
+    const loggedIn = userSession && isValidSession(userSession)
     console.log(loggedIn)
-    if(userSession && checkSession(userSession)){
+    if(userSession && isValidSession(userSession)){
       history.push("/")
     } 
   }, [userSession, history]);

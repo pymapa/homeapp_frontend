@@ -8,8 +8,8 @@ interface Context {
   userSession: CognitoUserSession | null;
   authFetchStatus: HttpRequestStatus;
 
-  setUser: (user: CognitoUser) => void;
-  setUserSession: (userSession: CognitoUserSession) => void;
+  setUser: (user: CognitoUser | null) => void;
+  setUserSession: (userSession: CognitoUserSession | null) => void;
   setAuthFetchStatus: (status: HttpRequestStatus) => void;
 }
 
@@ -28,7 +28,7 @@ export const AuthContext = createContext<Context>(initialState);
 const AuthProvider: FunctionComponent = (props) => {
   const [state, setState] = useState<Context>(initialState);
 
-  const setUser = (user: CognitoUser) => {
+  const setUser = (user: CognitoUser | null) => {
     setState((prev: Context) => {
       return {
         ...prev,
@@ -37,7 +37,7 @@ const AuthProvider: FunctionComponent = (props) => {
     });
   };
 
-  const setUserSession = (userSession: CognitoUserSession) => {
+  const setUserSession = (userSession: CognitoUserSession | null) => {
     setState((prev: Context) => {
       return {
         ...prev,
