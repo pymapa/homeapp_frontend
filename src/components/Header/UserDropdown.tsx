@@ -5,40 +5,39 @@ import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { signOut } from "../../utils/auth";
 
-interface Props {}
-
-const UserDropdown = (props: Props) => {
-  const {} = props;
-  const {user, setUser, setUserSession} = useContext(AuthContext)
+const UserDropdown = () => {
+  const { user, setUser, setUserSession } = useContext(AuthContext);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  const [closeTimerId, setCloseTimerId] = useState<ReturnType<typeof setTimeout>>();
+  const [closeTimerId, setCloseTimerId] = useState<
+    ReturnType<typeof setTimeout>
+  >();
 
   const hideDropdown = () => {
-    setUserDropdownOpen(false)
+    setUserDropdownOpen(false);
   };
 
   const openDropdown = () => {
-    console.log('openDropdown', closeTimerId)
-    closeTimerId && clearTimeout(closeTimerId)
+    console.log("openDropdown", closeTimerId);
+    closeTimerId && clearTimeout(closeTimerId);
     setUserDropdownOpen(true);
   };
 
   const closeWithTimer = () => {
-    console.log("closeWithTimer", closeTimerId)
-    closeTimerId && clearTimeout(closeTimerId)
+    console.log("closeWithTimer", closeTimerId);
+    closeTimerId && clearTimeout(closeTimerId);
     const timerId = setTimeout(() => {
-      hideDropdown()
-    }, 500)
-    setCloseTimerId(prevState => timerId)
+      hideDropdown();
+    }, 500);
+    setCloseTimerId((prevState) => timerId);
   };
 
-  const history = useHistory()
+  const history = useHistory();
   const handleSignout = () => {
-    user && signOut(user)
-    setUser(null)
-    setUserSession(null)
-    history.replace("/")
-  }
+    user && signOut(user);
+    setUser(null);
+    setUserSession(null);
+    history.replace("/login");
+  };
 
   return (
     <React.Fragment>
@@ -54,12 +53,19 @@ const UserDropdown = (props: Props) => {
             onMouseLeave={closeWithTimer}
           >
             <div className="header__dropdown--item">Account</div>
-            <button onClick={handleSignout} className="header__dropdown--item">Sign out</button>
+            <div className="header__dropdown--item">
+              <button
+                onClick={handleSignout}
+                className="header__dropdown--button"
+              >
+                Sign out
+              </button>
+            </div>
           </div>
         )}
       </div>
     </React.Fragment>
   );
-}
+};
 
 export default UserDropdown;

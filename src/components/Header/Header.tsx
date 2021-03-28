@@ -24,9 +24,12 @@ const Header = (props: Props) => {
       {isLoggedIn ? (
         <UserDropdown />
       ) : (
-        <Link to="/login" className="header__loginbutton">
-          Login
-        </Link>
+        <div className="header__user-logged-out">
+          <Link to="/signup" className="header__link">Sign up</Link>
+          <Link to="/login" className="header__link">
+            Login
+          </Link>
+        </div>
       )}
     </div>
   );

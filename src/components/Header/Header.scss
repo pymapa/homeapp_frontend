@@ -1,14 +1,23 @@
 @import '../../colors.scss';
 
-$dropdown-width: 120px;
+$dropdown-width: 100px;
 
 .header {
-  // border: 1px solid black;
   padding: 1em;
   border-radius: 4px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  &__link {
+    padding: 3px 10px;
+  }
+
+  &__user-logged-out > * {
+    &:first-child {
+      border-right: 1px solid black;
+    }
+  }
 
   &__dropdown {
     font-size: 1.5rem;
@@ -26,10 +35,14 @@ $dropdown-width: 120px;
     }
     
     &--item {
+      display: flex;
+      justify-content: center;
       padding: 0.5em;
       text-align: center;
+      border-top: 1px solid black;
       
       &:first-child {
+        border: none;
         margin-top: 2em;
       }
       &:hover {
@@ -37,5 +50,8 @@ $dropdown-width: 120px;
       }
     }
 
+    &--button {
+      width: 100%;
+    }
   }
 }
