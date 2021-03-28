@@ -29,11 +29,11 @@ pipelines:
       - step:
           name: Deploy to develop
           deployment: development
-          # trigger: manual
           caches:
             - node
           script:
-          # - npm run build
+          - echo $REACT_APP_USER_POOL_ID
+          - echo $REACT_APP_CLIENT_ID
           - pipe: atlassian/aws-s3-deploy:0.3.8
             variables:
               AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
