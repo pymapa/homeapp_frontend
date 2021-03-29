@@ -17,13 +17,11 @@ const UserDropdown = () => {
   };
 
   const openDropdown = () => {
-    console.log("openDropdown", closeTimerId);
     closeTimerId && clearTimeout(closeTimerId);
     setUserDropdownOpen(true);
   };
 
   const closeWithTimer = () => {
-    console.log("closeWithTimer", closeTimerId);
     closeTimerId && clearTimeout(closeTimerId);
     const timerId = setTimeout(() => {
       hideDropdown();

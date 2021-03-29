@@ -20,8 +20,7 @@ const Login = (props: Props) => {
 
   useEffect(() => {
     const loggedIn = userSession && isValidSession(userSession)
-    console.log(loggedIn)
-    if(userSession && isValidSession(userSession)){
+    if(loggedIn){
       history.push("/")
     } 
   }, [userSession, history]);
