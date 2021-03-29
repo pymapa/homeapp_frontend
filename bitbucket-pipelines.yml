@@ -10,6 +10,7 @@ pipelines:
     develop:
       - parallel:
         - step:
+            deployment: development
             name: Test & build
             caches:
               - node
