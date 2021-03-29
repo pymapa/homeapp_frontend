@@ -71,7 +71,7 @@ export const confirmRegistration = (
   return new Promise<void>((resolve, reject) => {
     cognitoUser.confirmRegistration(verificationCode, true, (err, res) => {
       if (err) {
-        console.error("Could not change password", err);
+        console.error("Could not confirm registration", err);
         reject(err);
       }
       console.log(res);

@@ -17,6 +17,7 @@ const Layout = (props: Props) => {
     (async () => {
       if (!user) {
         const currentUser = getCurrentUser();
+        console.log(currentUser)
         if (currentUser) {
           const userSession = await getUserSession(currentUser);
           setUser(currentUser);
@@ -32,7 +33,7 @@ const Layout = (props: Props) => {
     <div
       className="layout"
       style={{
-        backgroundImage: `url(${process.env.REACT_APP_CDN_URL}/images/dock.jpeg)`,
+        backgroundImage: `url(${process.env.REACT_APP_CDN_URL}/images/shore.jpeg)`,
         backgroundPosition: "center",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",

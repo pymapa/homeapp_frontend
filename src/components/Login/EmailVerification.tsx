@@ -6,47 +6,37 @@ interface Props {
 }
 
 type Inputs = {
-  email: string;
-  password: string;
+  verificationCode: string;
 };
 
-function LoginForm({ onSubmit }: Props) {
+const EmailVerification = ({ onSubmit }: Props) => {
   const { register, handleSubmit, errors } = useForm<Inputs>();
-
   return (
     <div className="loginform">
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <div className="form__title">
-          <h1>Sign in</h1>
+          <h1>Email verification</h1>
+          <p>Copy the verification code you received in email</p>
         </div>
         <div className="form__row">
           <input
-            placeholder="@"
+            placeholder="Verification code"
             className="form__input"
             type="text"
-            name="email"
-            ref={register({ required: true })}
-          />
-        </div>
-        <div className="form__row">
-          <input
-            placeholder="***"
-            className="form__input"
-            type="password"
-            name="password"
+            name="verificationCode"
             ref={register({ required: true })}
           />
         </div>
         <div className="form__row">
           {errors && (
             <button className="form__button form__button--submit" type="submit">
-              LOG IN
+              Submit
             </button>
           )}
         </div>
       </form>
     </div>
   );
-}
+};
 
-export default LoginForm;
+export default EmailVerification;

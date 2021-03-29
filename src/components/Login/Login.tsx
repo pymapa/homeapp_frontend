@@ -38,7 +38,7 @@ const Login = (props: Props) => {
   };
 
   return (
-    <div className="signup">
+    <div className="authentication">
       <LoginForm onSubmit={onSubmit} />
     </div>
   );

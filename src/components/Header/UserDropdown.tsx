@@ -25,8 +25,8 @@ const UserDropdown = () => {
     closeTimerId && clearTimeout(closeTimerId);
     const timerId = setTimeout(() => {
       hideDropdown();
-    }, 500);
-    setCloseTimerId((prevState) => timerId);
+    }, 250);
+    setCloseTimerId(() => timerId);
   };
 
   const history = useHistory();
