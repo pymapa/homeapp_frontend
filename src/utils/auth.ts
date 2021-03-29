@@ -1,6 +1,7 @@
 import {
   AuthenticationDetails,
   CognitoUser,
+  CognitoUserAttribute,
   CognitoUserSession,
   ISignUpResult,
 } from "amazon-cognito-identity-js";
@@ -34,11 +35,22 @@ export const getUserSession = (
 };
 
 export const signup = async (
+  name: string,
+  family_name: string,
   email: string,
   password: string
 ): Promise<ISignUpResult> => {
   return new Promise<ISignUpResult>((resolve, reject) => {
-    cognitoUserPool.signUp(email, password, [], [], (err, res) => {
+    const userAttributes: CognitoUserAttribute[] = []
+    userAttributes.push(new CognitoUserAttribute({
+      Name: 'name',
+      Value: name
+    }))
+    userAttributes.push(new CognitoUserAttribute({
+      Name: 'family_name',
+      Value: family_name
+    }))
+    cognitoUserPool.signUp(email, password, userAttributes, [], (err, res) => {
       if (err) {
         console.log(err);
         reject(err);
