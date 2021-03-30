@@ -21,7 +21,7 @@ function LoginForm({ onSubmit }: Props) {
         </div>
         <div className="form__row">
           <input
-            placeholder="@"
+            placeholder="Email"
             className="form__input"
             type="text"
             name="email"
@@ -30,7 +30,7 @@ function LoginForm({ onSubmit }: Props) {
         </div>
         <div className="form__row">
           <input
-            placeholder="***"
+            placeholder="Password"
             className="form__input"
             type="password"
             name="password"
