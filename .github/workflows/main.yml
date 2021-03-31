@@ -17,12 +17,11 @@ jobs:
         node-version: [12.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     env:
-      REACT_APP_USER_POOL_ID:
-        REACT_APP_API_URL=localhost:8081
-        REACT_APP_CDN_URL=http://cdn-dev.pyrypajunpaa.com
-        REACT_APP_USER_POOL_ID=eu-central-1_qfPL1nsJ9
-        REACT_APP_CLIENT_ID=48ihri52osnjs1d69p2jp59d18
-        REACT_APP_AWS_REGION=eu-central-1
+      REACT_APP_API_URL: localhost:8081
+      REACT_APP_CDN_URL: http://cdn-dev.pyrypajunpaa.com
+      REACT_APP_USER_POOL_ID: eu-central-1_qfPL1nsJ9
+      REACT_APP_CLIENT_ID: 48ihri52osnjs1d69p2jp59d18
+      REACT_APP_AWS_REGION: eu-central-1
     steps:
     - name: Node.js ${{ matrix.node-version }}
     - uses: actions/checkout@v2
