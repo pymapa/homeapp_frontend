@@ -42,7 +42,7 @@ jobs:
       - name: Test
         run: npm test
 
-      - name: Deploy to S3
+      - name: Deploy to S3 and invalidate cache
         uses: reggionick/s3-deploy@v3
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
