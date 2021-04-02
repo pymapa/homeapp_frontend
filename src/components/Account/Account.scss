@@ -1,0 +1,8 @@
+@import "../../colors.scss";
+
+.account {
+  border-radius: 4px;
+  // background-color: $color-background-blue;
+  backdrop-filter: blur(2px);
+  padding: 2em;
+}

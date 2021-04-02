@@ -1,3 +1,5 @@
+@import "../../colors.scss";
+
 .layout {
   min-height: 100vh;
   min-width: 100vw;
@@ -10,12 +12,27 @@
 }
 
 .layout__header {
+  // Needed for dropdowns to stay on top of content filter
+  z-index: 5;
   grid-column: 2/8;
 }
 
 
 .layout__content {
-  grid-column: 3/8;
+  grid-column: 3/7;
+  color: white;
+
+  &--wide {
+    grid-column: 2/8;
+  }
+
+  &--left-half {
+    grid-column: 2/5;
+  }
+
+  &--right-half {
+    grid-column: 5/8;
+  }
 }
 
 .layout__footer {

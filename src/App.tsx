@@ -5,20 +5,18 @@ import SignUp from "./components/Login/SignUp";
 import Login from "./components/Login/Login";
 import RootProvider from "./context/Root";
 import Layout from "./components/Layout/Layout";
+import Account from "./components/Account/Account";
 
 const App = () => {
   return (
     <RootProvider>
       <Router>
         <Layout>
-          <div className="layout__content">
-            <Switch>
-              <Route path="/signup" component={SignUp} />
-            </Switch>
-            <Switch>
-              <Route path="/login" component={Login} />
-            </Switch>
-          </div>
+          <Switch>
+            <Route path="/signup" component={SignUp} />
+            <Route path="/login" component={Login} />
+            <Route path="/account" component={Account} />
+          </Switch>
         </Layout>
       </Router>
     </RootProvider>

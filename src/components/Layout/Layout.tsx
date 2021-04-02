@@ -1,33 +1,36 @@
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
-import { getCurrentUser, getUserSession } from "../../utils/auth";
+import { getCurrentUser, getUserAttributes, getUserSession } from "../../utils/auth";
 import Header from "../Header/Header";
 import "./layout.scss";
-
 
 interface Props {
   children: JSX.Element;
 }
 
 const Layout = (props: Props) => {
-  const { user, setUser, setUserSession } = useContext(AuthContext);
+  const { user, setUser, setUserAttributes, setUserSession } = useContext(
+    AuthContext
+  );
   const history = useHistory();
   useEffect(() => {
     (async () => {
       if (!user) {
         const currentUser = getCurrentUser();
-        console.log(currentUser)
+        console.log(currentUser);
         if (currentUser) {
           const userSession = await getUserSession(currentUser);
+          const userAttributes = await getUserAttributes(currentUser);
           setUser(currentUser);
+          setUserAttributes(userAttributes);
           setUserSession(userSession);
         } else {
           history.push("/login");
         }
       }
     })();
-  }, [user, history, setUser, setUserSession]);
+  }, [user, history, setUser, setUserAttributes, setUserSession]);
 
   return (
     <div

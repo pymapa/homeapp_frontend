@@ -1,24 +1,32 @@
-import { CognitoUser, CognitoUserSession } from "amazon-cognito-identity-js";
+import {
+  CognitoUser,
+  CognitoUserAttribute,
+  CognitoUserSession,
+} from "amazon-cognito-identity-js";
 import React, { createContext, FunctionComponent, useState } from "react";
 import { defaultFn } from "../utils/common";
 import { HttpRequestStatus } from "../utils/http";
 
 interface Context {
   user: CognitoUser | null;
+  userAttributes: CognitoUserAttribute[] | null;
   userSession: CognitoUserSession | null;
   authFetchStatus: HttpRequestStatus;
 
   setUser: (user: CognitoUser | null) => void;
+  setUserAttributes: (userAttributes: CognitoUserAttribute[] | null) => void;
   setUserSession: (userSession: CognitoUserSession | null) => void;
   setAuthFetchStatus: (status: HttpRequestStatus) => void;
 }
 
 const initialState: Context = {
   user: null,
+  userAttributes: [],
   userSession: null,
   authFetchStatus: HttpRequestStatus.null,
 
   setUser: defaultFn,
+  setUserAttributes: defaultFn,
   setUserSession: defaultFn,
   setAuthFetchStatus: defaultFn,
 };
@@ -32,8 +40,17 @@ const AuthProvider: FunctionComponent = (props) => {
     setState((prev: Context) => {
       return {
         ...prev,
-        user
-      }
+        user,
+      };
+    });
+  };
+
+  const setUserAttributes = (userAttributes: CognitoUserAttribute[] | null) => {
+    setState((prev: Context) => {
+      return {
+        ...prev,
+        userAttributes,
+      };
     });
   };
 
@@ -41,10 +58,10 @@ const AuthProvider: FunctionComponent = (props) => {
     setState((prev: Context) => {
       return {
         ...prev,
-        userSession
-      }
-    })
-  }
+        userSession,
+      };
+    });
+  };
 
   const setAuthFetchStatus = (status: HttpRequestStatus) => {
     setState((prev: Context) => {
@@ -58,6 +75,7 @@ const AuthProvider: FunctionComponent = (props) => {
   const initState: Context = {
     ...state,
     setUser,
+    setUserAttributes,
     setUserSession,
     setAuthFetchStatus,
   };

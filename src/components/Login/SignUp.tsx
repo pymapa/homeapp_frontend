@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { confirmRegistration, signIn, signup } from "../../utils/auth";
 import EmailVerification from "./EmailVerification";
@@ -45,19 +46,21 @@ const SignUp = (props: Props) => {
     }
   };
 
+  const history = useHistory()
   const onVerificationSubmit = async (data: { verificationCode: string }) => {
     try {
       user && (await confirmRegistration(data.verificationCode, user));
       const { Username, Password } = credentials;
       const session = await signIn(Username, Password);
       setUserSession(session)
+      history.replace('/')
     } catch (err) {
       alert(err);
     }
   };
 
   return (
-    <div className="authentication">
+    <div className="authentication layout__content">
       {formState === SignupState.USER_INFO ? (
         <SignUpForm onSubmit={onSignupSubmit} />
       ) : (

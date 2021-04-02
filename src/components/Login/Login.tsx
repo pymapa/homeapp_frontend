@@ -38,7 +38,7 @@ const Login = (props: Props) => {
   };
 
   return (
-    <div className="authentication">
+    <div className="authentication layout__content">
       <LoginForm onSubmit={onSubmit} />
     </div>
   );

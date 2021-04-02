@@ -1,7 +1,7 @@
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { signOut } from "../../utils/auth";
 
@@ -50,7 +50,7 @@ const UserDropdown = () => {
             onMouseEnter={openDropdown}
             onMouseLeave={closeWithTimer}
           >
-            <div className="header__dropdown--item">Account</div>
+            <Link to="/account" className="header__dropdown--item">Account</Link>
             <div className="header__dropdown--item">
               <button
                 onClick={handleSignout}

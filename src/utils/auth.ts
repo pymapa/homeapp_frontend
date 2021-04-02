@@ -23,14 +23,25 @@ export const getUserSession = (
   currentUser: CognitoUser
 ): Promise<CognitoUserSession> => {
   return new Promise<CognitoUserSession>((resolve, reject) => {
-    currentUser.getSession(
-      (err: Error, session: CognitoUserSession | null) => {
-        if (session) {
-          resolve(session)
-        }
-        reject(err)
+    currentUser.getSession((err: Error, session: CognitoUserSession | null) => {
+      if (session) {
+        resolve(session);
       }
-    );
+      reject(err);
+    });
+  });
+};
+
+export const getUserAttributes = async (
+  user: CognitoUser
+): Promise<CognitoUserAttribute[]> => {
+  return new Promise((resolve, reject) => {
+    user.getUserAttributes((err, res) => {
+      if (res) {
+        resolve(res);
+      }
+      reject(err);
+    });
   });
 };
 
@@ -41,15 +52,19 @@ export const signup = async (
   password: string
 ): Promise<ISignUpResult> => {
   return new Promise<ISignUpResult>((resolve, reject) => {
-    const userAttributes: CognitoUserAttribute[] = []
-    userAttributes.push(new CognitoUserAttribute({
-      Name: 'name',
-      Value: name
-    }))
-    userAttributes.push(new CognitoUserAttribute({
-      Name: 'family_name',
-      Value: family_name
-    }))
+    const userAttributes: CognitoUserAttribute[] = [];
+    userAttributes.push(
+      new CognitoUserAttribute({
+        Name: "name",
+        Value: name,
+      })
+    );
+    userAttributes.push(
+      new CognitoUserAttribute({
+        Name: "family_name",
+        Value: family_name,
+      })
+    );
     cognitoUserPool.signUp(email, password, userAttributes, [], (err, res) => {
       if (err) {
         console.log(err);

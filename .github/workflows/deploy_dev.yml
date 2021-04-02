@@ -9,8 +9,8 @@ on:
 env:
   REACT_APP_API_URL: https://api-dev.pyrypajunpaa.com/history
   REACT_APP_CDN_URL: http://cdn-dev.pyrypajunpaa.com
-  REACT_APP_USER_POOL_ID: eu-central-1_XUdVVriZV
-  REACT_APP_CLIENT_ID: 27jjekscc1vl05ekite5mvv2qu
+  REACT_APP_USER_POOL_ID: eu-central-1_2kSeUQHL0
+  REACT_APP_CLIENT_ID: 2ja6tsm29ra4u87svq6vt3mme2
   REACT_APP_AWS_REGION: eu-central-1
 
 jobs:
