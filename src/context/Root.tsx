@@ -1,8 +1,13 @@
 import React, { FunctionComponent } from "react";
 import AuthProvider from "./AuthContext";
+import NotificationProvider from "./NotificationContext";
 
 const RootProvider: FunctionComponent = (props) => {
-  return <AuthProvider>{props.children}</AuthProvider>;
+  return (
+    <NotificationProvider>
+      <AuthProvider>{props.children}</AuthProvider>
+    </NotificationProvider>
+  );
 };
 
 export default RootProvider;

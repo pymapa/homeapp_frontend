@@ -1,6 +1,8 @@
+import cuid from "cuid";
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { NotificationContext } from "../../context/NotificationContext";
 import { confirmRegistration, signIn, signup } from "../../utils/auth";
 import EmailVerification from "./EmailVerification";
 import "./login.scss";
@@ -22,8 +24,12 @@ const SignUp = (props: Props) => {
   const [formState, setFormState] = useState<SignupState>(
     SignupState.USER_INFO
   );
-  const [credentials, setCredentials] = useState<Credentials>({Username: '', Password: ''});
+  const [credentials, setCredentials] = useState<Credentials>({
+    Username: "",
+    Password: "",
+  });
   const { user, setUser, setUserSession } = useContext(AuthContext);
+  const { addToast } = useContext(NotificationContext);
 
   const onSignupSubmit = async (data: {
     firstName: string;
@@ -42,20 +48,36 @@ const SignUp = (props: Props) => {
       setCredentials({ Username: data.email, Password: data.password });
       setFormState(SignupState.EMAIL_VERIFICATION);
     } catch (err) {
-      alert(err);
+      addToast({
+        text: err.message,
+        id: cuid(),
+        type: "error",
+        timer: 5000,
+      });
     }
   };
 
-  const history = useHistory()
+  const history = useHistory();
   const onVerificationSubmit = async (data: { verificationCode: string }) => {
     try {
       user && (await confirmRegistration(data.verificationCode, user));
       const { Username, Password } = credentials;
       const session = await signIn(Username, Password);
-      setUserSession(session)
-      history.replace('/')
+      setUserSession(session);
+      history.replace("/");
+      addToast({
+        text: "Welcome!",
+        id: cuid(),
+        type: "success",
+        timer: 5000,
+      });
     } catch (err) {
-      alert(err);
+      addToast({
+        text: err.message,
+        id: cuid(),
+        type: "error",
+        timer: 5000,
+      });
     }
   };
 
@@ -65,7 +87,7 @@ const SignUp = (props: Props) => {
         <SignUpForm onSubmit={onSignupSubmit} />
       ) : (
         <EmailVerification onSubmit={onVerificationSubmit} />
-        )}
+      )}
     </div>
   );
 };

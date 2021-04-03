@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import { getCurrentUser, getUserAttributes, getUserSession } from "../../utils/auth";
 import Header from "../Header/Header";
+import ToastMessages from "../ToastMessages/ToastMessages";
 import "./layout.scss";
 
 interface Props {
@@ -42,6 +43,7 @@ const Layout = (props: Props) => {
         backgroundRepeat: "no-repeat",
       }}
     >
+      <ToastMessages />
       <Header />
       {props.children}
 

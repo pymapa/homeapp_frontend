@@ -1,0 +1,52 @@
+@import "../../colors.scss";
+
+@keyframes closeToast {
+  0% {opacity: 1}
+  100% {opacity: 0; transform: translateX(100%);}
+}
+
+.toasts {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 3em;
+  z-index: 100;
+}
+
+.toast {
+  border-radius: 4px;
+  width: 300px;
+  max-height: 70px;
+  backdrop-filter: blur(2px);
+  padding: 2em;
+  box-shadow: 10px 10px 10px 0px rgba(0, 0, 0, 0.75);
+  margin-bottom: 5px;
+  position: relative;
+
+  &--success {
+    background-color: $color-success;
+  }
+
+  &--info {
+    background-color: $color-info;
+  }
+
+  &--warning {
+    background-color: $color-warning;
+  }
+
+  &--error {
+    background-color: $color-error;
+  }
+
+  &--exit {
+    animation: closeToast 0.3s;
+  }
+
+  &__close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+}
+

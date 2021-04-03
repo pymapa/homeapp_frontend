@@ -1,6 +1,8 @@
+import cuid from "cuid";
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import { NotificationContext } from "../../context/NotificationContext";
 import { getCognitoUser, isValidSession, signIn } from "../../utils/auth";
 import { HttpRequestStatus } from "../../utils/http";
 import "./login.scss";
@@ -16,13 +18,15 @@ const Login = (props: Props) => {
     setAuthFetchStatus,
   } = useContext(AuthContext);
 
-  const history = useHistory()
+  const { addToast } = useContext(NotificationContext);
+
+  const history = useHistory();
 
   useEffect(() => {
-    const loggedIn = userSession && isValidSession(userSession)
-    if(loggedIn){
-      history.push("/")
-    } 
+    const loggedIn = userSession && isValidSession(userSession);
+    if (loggedIn) {
+      history.push("/");
+    }
   }, [userSession, history]);
 
   const onSubmit = async (formdata: { email: string; password: string }) => {
@@ -32,7 +36,19 @@ const Login = (props: Props) => {
       setUser(getCognitoUser(formdata.email));
       setUserSession(user);
       setAuthFetchStatus(HttpRequestStatus.ready);
+      addToast({
+        text: 'Welcome!',
+        id: cuid(),
+        timer: 5000,
+        type: "success"
+      })
     } catch (err) {
+      addToast({
+        text: err.message,
+        id: cuid(),
+        timer: 5000,
+        type: "error"
+      })
       setAuthFetchStatus(HttpRequestStatus.error);
     }
   };
