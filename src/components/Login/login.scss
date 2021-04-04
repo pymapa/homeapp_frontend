@@ -1,5 +1,5 @@
 @import '../../colors.scss';
-
+@import "../../media-queries.scss";
 .authentication {
   height: 100%;
 }
@@ -29,6 +29,11 @@
     display: flex;
     justify-content: space-around;
     padding: 1em;
+    flex-flow: wrap;
+
+    @media #{$mq-small} {
+      flex-wrap: nowrap;
+    }
   }
 
   &__input {
